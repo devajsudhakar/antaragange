@@ -1158,16 +1158,16 @@
 
   /* ========= INTERACTIVE LEAFLET MAP ========= */
   const places = [
-    { id: 'A', name: 'Antaragange Hill',           meta: 'You are here · Trailhead & Temple',  lat: 13.1597, lng: 78.1438, main: true,  query: 'Antaragange Hill, Kolar, Karnataka' },
-    { id: '1', name: 'Kolaramma Temple',           meta: '≈ 5 km · Kolar Town Centre',         lat: 13.1370, lng: 78.1300, query: 'Kolaramma Temple, Kolar' },
-    { id: '2', name: 'Someshwara Temple',          meta: '≈ 7 km · Kolar Town',                lat: 13.1342, lng: 78.1280, query: 'Someshwara Temple, Kolar' },
-    { id: '3', name: 'Kolar Gold Fields (KGF)',    meta: '≈ 12 km · Heritage Mining Town',     lat: 12.9582, lng: 78.2691, query: 'Kolar Gold Fields, KGF, Karnataka' },
-    { id: '4', name: 'Koti Lingeswara Temple',     meta: '≈ 15 km · Kammasandra',              lat: 13.0667, lng: 78.2833, query: 'Kotilingeshwara Temple, Kammasandra, Kolar' },
-    { id: '5', name: 'Bethamangala Lake',          meta: '≈ 18 km · Birding & Reservoir',      lat: 12.9939, lng: 78.3061, query: 'Bethamangala Lake, Kolar' },
-    { id: '6', name: 'Avani Hill & Sita Temple',   meta: '≈ 35 km · Mythological Site',        lat: 13.0833, lng: 78.4500, query: 'Avani Hill, Kolar, Karnataka' },
-    { id: '7', name: 'Mulbagal Anjaneya Temple',   meta: '≈ 30 km · East of Kolar',            lat: 13.1667, lng: 78.3833, query: 'Mulbagal Anjaneya Temple, Karnataka' },
-    { id: '8', name: 'Nandi Hills',                meta: '≈ 65 km · Chikkaballapur District',  lat: 13.3702, lng: 77.6835, query: 'Nandi Hills, Chikkaballapur, Karnataka' },
-    { id: '9', name: 'Bhoga Nandeeshwara Temple',  meta: '≈ 60 km · Base of Nandi Hills',      lat: 13.3489, lng: 77.6889, query: 'Bhoga Nandeeshwara Temple, Chikkaballapur' }
+    { id: 'A', name: 'Antaragange Hill',           meta: 'You are here · Trailhead & Temple',  lat: 13.1424, lng: 78.1006, main: true,  query: 'Antaragange Hill, Kolar, Karnataka' },
+    { id: '1', name: 'Kolaramma Temple',           meta: '≈ 5 km · Kolar Town Centre',         lat: 13.1384, lng: 78.1387, query: 'Kolaramma Temple, Kolar' },
+    { id: '2', name: 'Someshwara Temple',          meta: '≈ 7 km · Kolar Town',                lat: 13.1374, lng: 78.1381, query: 'Someshwara Temple, Kolar' },
+    { id: '3', name: 'Kolar Gold Fields (KGF)',    meta: '≈ 12 km · Heritage Mining Town',     lat: 12.9617, lng: 78.2707, query: 'Kolar Gold Fields, KGF, Karnataka' },
+    { id: '4', name: 'Koti Lingeswara Temple',     meta: '≈ 15 km · Kammasandra',              lat: 12.9952, lng: 78.2958, query: 'Kotilingeshwara Temple, Kammasandra, Kolar' },
+    { id: '5', name: 'Bethamangala Lake',          meta: '≈ 18 km · Birding & Reservoir',      lat: 13.0256, lng: 78.3358, query: 'Bethamangala Lake, Kolar' },
+    { id: '6', name: 'Avani Hill & Sita Temple',   meta: '≈ 35 km · Mythological Site',        lat: 13.1091, lng: 78.3296, query: 'Avani Hill, Kolar, Karnataka' },
+    { id: '7', name: 'Mulbagal Anjaneya Temple',   meta: '≈ 30 km · East of Kolar',            lat: 13.1662, lng: 78.3931, query: 'Mulbagal Anjaneya Temple, Karnataka' },
+    { id: '8', name: 'Nandi Hills',                meta: '≈ 65 km · Chikkaballapur District',  lat: 13.3863, lng: 77.7009, query: 'Nandi Hills, Chikkaballapur, Karnataka' },
+    { id: '9', name: 'Bhoga Nandeeshwara Temple',  meta: '≈ 60 km · Base of Nandi Hills',      lat: 13.3868, lng: 77.6981, query: 'Bhoga Nandeeshwara Temple, Chikkaballapur' }
   ];
 
   function initLeafletMap() {
@@ -1195,10 +1195,10 @@
       });
 
       const marker = L.marker([p.lat, p.lng], { icon }).addTo(map);
-      // Universal Google Maps URLs (work everywhere)
+      // Pure coordinate-based Google Maps URLs (most reliable format)
       const coords = p.lat + ',' + p.lng;
-      const viewUrl = 'https://maps.google.com/?q=' + coords + '(' + encodeURIComponent(p.name) + ')';
-      const directionsUrl = 'https://maps.google.com/maps?daddr=' + coords;
+      const viewUrl = 'https://www.google.com/maps?q=' + coords;
+      const directionsUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + coords;
       const osmUrl = 'https://www.openstreetmap.org/?mlat=' + p.lat + '&mlon=' + p.lng + '#map=15/' + p.lat + '/' + p.lng;
       marker.bindPopup(
         '<strong>' + p.name + '</strong>' +
