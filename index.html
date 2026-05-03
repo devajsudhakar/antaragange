@@ -374,6 +374,96 @@
       .book-btn { width: 100%; justify-content: center; }
     }
 
+    /* TRAIL MAP */
+    #trail { background: var(--stone); position: relative; }
+    #trail .section-label { color: rgba(201,169,110,0.75); }
+    #trail .section-title { color: var(--cream); }
+    #trail .section-title em { color: var(--sand); }
+    #trail .section-divider { background: rgba(201,169,110,0.35); }
+    .trail-outer { display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; }
+    .trail-map-wrap { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+    #trailMap { width: 100%; height: 520px; background: #1a1208; }
+    .trail-info-panel {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,169,110,0.15);
+      border-radius: 12px;
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .trail-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .trail-stat {
+      background: rgba(201,169,110,0.08);
+      border: 1px solid rgba(201,169,110,0.12);
+      border-radius: 8px;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    .trail-stat-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--sand);
+      line-height: 1;
+    }
+    .trail-stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(229,218,200,0.5);
+      margin-top: 0.3rem;
+    }
+    .trail-waypoints { flex: 1; overflow-y: auto; max-height: 320px; }
+    .trail-waypoints::-webkit-scrollbar { width: 4px; }
+    .trail-waypoints::-webkit-scrollbar-thumb { background: rgba(201,169,110,0.3); border-radius: 2px; }
+    .trail-wp {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
+      transition: background 0.15s;
+      border-radius: 4px;
+      padding-left: 0.4rem;
+      padding-right: 0.4rem;
+    }
+    .trail-wp:hover { background: rgba(201,169,110,0.08); }
+    .trail-wp-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+    .trail-wp-icon.start { background: #2d8a45; color: #fff; }
+    .trail-wp-icon.temple { background: #b5622a; color: #fff; }
+    .trail-wp-icon.cave { background: #8b6914; color: #fff; }
+    .trail-wp-icon.summit { background: #c9a96e; color: #2c2416; }
+    .trail-wp-info { flex: 1; }
+    .trail-wp-name { font-size: 0.85rem; font-weight: 500; color: var(--cream); }
+    .trail-wp-detail { font-size: 0.72rem; color: rgba(229,218,200,0.5); margin-top: 0.15rem; }
+    .trail-legend {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(201,169,110,0.12);
+    }
+    .trail-legend-item {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.72rem; color: rgba(229,218,200,0.6);
+    }
+    .trail-legend-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+
+    @media (max-width: 900px) {
+      .trail-outer { grid-template-columns: 1fr; }
+      #trailMap { height: 360px; }
+      .trail-info-panel { max-height: 350px; }
+    }
+
     /* DOS & DONTS */
     #dosdonts { background: var(--cream); }
     .dd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
@@ -407,8 +497,8 @@
     #qr { background: var(--earth); padding: 4.5rem 2.5rem; }
     .qr-outer { display: flex; align-items: flex-start; gap: 4rem; flex-wrap: wrap; }
     .qr-left { flex-shrink: 0; }
-    .qr-frame { width: 160px; height: 160px; background: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 40px rgba(0,0,0,0.25); padding: 12px; }
-    .qr-frame svg { width: 100%; height: 100%; }
+    .qr-frame { width: 180px; height: 180px; background: #000; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 40px rgba(0,0,0,0.25); padding: 0; overflow: hidden; }
+    .qr-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .qr-caption { margin-top: 0.8rem; text-align: center; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(229,218,200,0.55); }
     .qr-right { flex: 1; min-width: 260px; }
     .qr-right .section-label { color: rgba(201,169,110,0.7); }
@@ -452,7 +542,24 @@
       .qr-outer { gap: 2.5rem; }
       .map-interactive { grid-template-columns: 1fr; height: auto; }
       .map-sidebar { max-height: 300px; border-right: none; border-bottom: 1px solid var(--border); }
-      #leafletMap { height: 380px; }
+      #leafletMap { height: 380px; position: relative; }
+      .map-interact-overlay {
+        position: absolute; inset: 0; z-index: 1000;
+        background: rgba(44,36,22,0.55);
+        backdrop-filter: blur(3px);
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        cursor: pointer;
+        border-radius: 0 0 16px 16px;
+        transition: opacity 0.3s;
+      }
+      .map-interact-overlay.hidden { opacity: 0; pointer-events: none; }
+      .map-interact-overlay svg { margin-bottom: 0.6rem; }
+      .map-interact-overlay p { color: #fff; font-size: 0.88rem; font-weight: 500; }
+      .map-interact-overlay small { color: rgba(255,255,255,0.7); font-size: 0.72rem; margin-top: 0.25rem; }
+    }
+    @media (min-width: 801px) {
+      .map-interact-overlay { display: none !important; }
     }
   </style>
 </head>
@@ -469,6 +576,7 @@
     <li><a href="#map"     onclick="closeMenu()">Map</a></li>
     <li><a href="#visitor" onclick="closeMenu()">Visit</a></li>
     <li><a href="#book"    onclick="closeMenu()">Book Trek</a></li>
+    <li><a href="#trail"   onclick="closeMenu()">Trek Route</a></li>
     <li><a href="#gallery" onclick="closeMenu()">Gallery</a></li>
   </ul>
   <div class="nav-toggle" id="navToggle" onclick="toggleMenu()">
@@ -710,6 +818,16 @@
         <div class="map-sidebar-list" id="placesList"></div>
       </aside>
       <div id="leafletMap"></div>
+      <div class="map-interact-overlay" id="mapOverlay" onclick="enableMapInteract()">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+          <rect x="1" y="3" width="15" height="13" rx="2"/>
+          <path d="M16 8h4l3 3v5h-7V8z"/>
+          <circle cx="5.5" cy="18.5" r="2.5"/>
+          <circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+        <p>Tap to interact with map</p>
+        <small>Page scroll works normally until you tap</small>
+      </div>
     </div>
   </div>
 </section>
@@ -879,6 +997,53 @@
   </div>
 </section>
 
+<!-- TRAIL MAP -->
+<section id="trail">
+  <div class="container">
+    <p class="section-label">Navigation</p>
+    <h2 class="section-title">Trekking <em>Trail Map</em></h2>
+    <div class="section-divider" style="background:rgba(201,169,110,0.35)"></div>
+    <p style="color:rgba(229,218,200,0.68);max-width:760px;margin:-1.6rem 0 1.8rem;font-size:0.92rem;line-height:1.65;">
+      This map shows the recommended Antaragange trekking direction from the parking area to the temple, caves, and summit. It is an approximate guide based on public trail information; follow Forest Department guidance and your official guide on-site.
+    </p>
+    <p style="color:#f3c06f;background:rgba(181,98,42,0.14);border:1px solid rgba(201,169,110,0.25);border-radius:8px;padding:0.9rem 1rem;max-width:860px;margin:-0.8rem 0 1.8rem;font-size:0.88rem;line-height:1.6;">
+      <strong>Note:</strong> This trail map is AI-generated for visual guidance only. For correct directions on-site, follow the marked arrows/signboards and trek with the allocated Forest Department guide for a safer and better experience.
+    </p>
+    <div class="trail-outer">
+      <div class="trail-map-wrap">
+        <div id="trailMap"></div>
+      </div>
+      <div class="trail-info-panel">
+        <div class="trail-stats">
+          <div class="trail-stat">
+            <div class="trail-stat-val">5.3 km</div>
+            <div class="trail-stat-label">Loop Distance</div>
+          </div>
+          <div class="trail-stat">
+            <div class="trail-stat-val">355 m</div>
+            <div class="trail-stat-label">Elevation Gain</div>
+          </div>
+          <div class="trail-stat">
+            <div class="trail-stat-val">Moderate</div>
+            <div class="trail-stat-label">Difficulty</div>
+          </div>
+          <div class="trail-stat">
+            <div class="trail-stat-val">3–4 hr</div>
+            <div class="trail-stat-label">Duration</div>
+          </div>
+        </div>
+        <div class="trail-waypoints" id="trailWaypoints"></div>
+        <div class="trail-legend">
+          <div class="trail-legend-item"><span class="trail-legend-dot" style="background:#2d8a45"></span> Trail Start</div>
+          <div class="trail-legend-item"><span class="trail-legend-dot" style="background:#b5622a"></span> Temple</div>
+          <div class="trail-legend-item"><span class="trail-legend-dot" style="background:#8b6914"></span> Cave</div>
+          <div class="trail-legend-item"><span class="trail-legend-dot" style="background:#c9a96e"></span> Summit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- DOS & DONTS -->
 <section id="dosdonts">
   <div class="container">
@@ -965,67 +1130,7 @@
     <div class="qr-outer">
       <div class="qr-left">
         <div class="qr-frame">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <!-- TL finder -->
-            <rect x="2" y="2" width="28" height="28" rx="3" fill="#2c2416"/>
-            <rect x="6" y="6" width="20" height="20" rx="2" fill="white"/>
-            <rect x="10" y="10" width="12" height="12" rx="1" fill="#2c2416"/>
-            <!-- TR finder -->
-            <rect x="70" y="2" width="28" height="28" rx="3" fill="#2c2416"/>
-            <rect x="74" y="6" width="20" height="20" rx="2" fill="white"/>
-            <rect x="78" y="10" width="12" height="12" rx="1" fill="#2c2416"/>
-            <!-- BL finder -->
-            <rect x="2" y="70" width="28" height="28" rx="3" fill="#2c2416"/>
-            <rect x="6" y="74" width="20" height="20" rx="2" fill="white"/>
-            <rect x="10" y="78" width="12" height="12" rx="1" fill="#2c2416"/>
-            <!-- Timing / data modules -->
-            <rect x="34" y="2"  width="5" height="5" fill="#2c2416"/>
-            <rect x="41" y="2"  width="5" height="5" fill="#2c2416"/>
-            <rect x="48" y="5"  width="5" height="5" fill="#2c2416"/>
-            <rect x="57" y="2"  width="5" height="5" fill="#2c2416"/>
-            <rect x="64" y="2"  width="5" height="5" fill="#2c2416"/>
-            <rect x="34" y="9"  width="5" height="5" fill="#2c2416"/>
-            <rect x="48" y="13" width="5" height="5" fill="#2c2416"/>
-            <rect x="57" y="9"  width="5" height="5" fill="#2c2416"/>
-            <rect x="34" y="16" width="5" height="5" fill="#2c2416"/>
-            <rect x="41" y="20" width="5" height="5" fill="#2c2416"/>
-            <rect x="57" y="16" width="5" height="5" fill="#2c2416"/>
-            <rect x="64" y="20" width="5" height="5" fill="#2c2416"/>
-            <rect x="2"  y="34" width="5" height="5" fill="#2c2416"/>
-            <rect x="9"  y="34" width="5" height="5" fill="#2c2416"/>
-            <rect x="20" y="41" width="5" height="5" fill="#2c2416"/>
-            <rect x="2"  y="48" width="5" height="5" fill="#2c2416"/>
-            <rect x="16" y="48" width="5" height="5" fill="#2c2416"/>
-            <rect x="9"  y="57" width="5" height="5" fill="#2c2416"/>
-            <rect x="2"  y="57" width="5" height="5" fill="#2c2416"/>
-            <rect x="20" y="57" width="5" height="5" fill="#2c2416"/>
-            <!-- Centre accent logo -->
-            <rect x="38" y="38" width="24" height="24" rx="3" fill="#b5622a"/>
-            <rect x="43" y="43" width="14" height="14" rx="2" fill="white"/>
-            <rect x="47" y="47" width="6"  height="6"  rx="1" fill="#b5622a"/>
-            <!-- Right data -->
-            <rect x="70" y="34" width="5" height="5" fill="#2c2416"/>
-            <rect x="77" y="41" width="5" height="5" fill="#2c2416"/>
-            <rect x="84" y="34" width="5" height="5" fill="#2c2416"/>
-            <rect x="91" y="41" width="5" height="5" fill="#2c2416"/>
-            <rect x="70" y="48" width="5" height="5" fill="#2c2416"/>
-            <rect x="84" y="48" width="5" height="5" fill="#2c2416"/>
-            <rect x="77" y="57" width="5" height="5" fill="#2c2416"/>
-            <rect x="91" y="57" width="5" height="5" fill="#2c2416"/>
-            <!-- Bottom data -->
-            <rect x="34" y="70" width="5" height="5" fill="#2c2416"/>
-            <rect x="41" y="77" width="5" height="5" fill="#2c2416"/>
-            <rect x="48" y="70" width="5" height="5" fill="#2c2416"/>
-            <rect x="57" y="77" width="5" height="5" fill="#2c2416"/>
-            <rect x="64" y="70" width="5" height="5" fill="#2c2416"/>
-            <rect x="48" y="84" width="5" height="5" fill="#2c2416"/>
-            <rect x="64" y="84" width="5" height="5" fill="#2c2416"/>
-            <rect x="72" y="70" width="5" height="5" fill="#2c2416"/>
-            <rect x="79" y="77" width="5" height="5" fill="#2c2416"/>
-            <rect x="86" y="70" width="5" height="5" fill="#2c2416"/>
-            <rect x="93" y="77" width="5" height="5" fill="#2c2416"/>
-            <rect x="93" y="84" width="5" height="5" fill="#2c2416"/>
-          </svg>
+          <img src="images/tqrcg-qr.png" alt="TQRCG QR code for Antaragange tourism guide" loading="lazy" />
         </div>
         <p class="qr-caption">Scan to open this guide</p>
       </div>
@@ -1086,6 +1191,7 @@
     <li><a href="#nearby">Nearby</a></li>
     <li><a href="#visitor">Visitor Info</a></li>
     <li><a href="#book" style="color:var(--sand);font-weight:600;">Book Trek</a></li>
+    <li><a href="#trail">Trek Route</a></li>
     <li><a href="#dosdonts">Do's &amp; Don'ts</a></li>
     <li><a href="#gallery">Gallery</a></li>
   </ul>
@@ -1173,8 +1279,19 @@
   function initLeafletMap() {
     if (typeof L === 'undefined') { setTimeout(initLeafletMap, 200); return; }
 
-    const map = L.map('leafletMap', { scrollWheelZoom: false, zoomControl: true })
+    const isMobile = window.innerWidth <= 800;
+
+    const map = L.map('leafletMap', {
+      scrollWheelZoom: false,
+      zoomControl: true,
+      dragging: !isMobile,
+      touchZoom: !isMobile,
+      doubleClickZoom: !isMobile
+    })
       .setView([13.15, 78.05], 9);
+
+    // Store map reference globally for mobile interact toggle
+    window._antaragangeMap = map;
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -1244,6 +1361,40 @@
     map.on('mouseout', () => map.scrollWheelZoom.disable());
   }
 
+  /* Mobile map: toggle overlay to enable map interaction */
+  function enableMapInteract() {
+    if (window.innerWidth > 800) return;
+    const overlay = document.getElementById('mapOverlay');
+    if (!overlay) return;
+    overlay.classList.add('hidden');
+    const map = window._antaragangeMap;
+    if (map) {
+      map.dragging.enable();
+      map.touchZoom.enable();
+      map.doubleClickZoom.enable();
+    }
+  }
+
+  /* Re-disable map interaction when user scrolls past it on mobile */
+  window.addEventListener('scroll', () => {
+    if (window.innerWidth > 800) return;
+    const overlay = document.getElementById('mapOverlay');
+    if (!overlay) return;
+    const mapEl = document.getElementById('leafletMap');
+    if (!mapEl) return;
+    const rect = mapEl.getBoundingClientRect();
+    // If map is fully off-screen, hide overlay so it reappears when scrolled back
+    if (rect.bottom < 0 || rect.top > window.innerHeight) {
+      overlay.classList.remove('hidden');
+      const map = window._antaragangeMap;
+      if (map) {
+        map.dragging.disable();
+        map.touchZoom.disable();
+        map.doubleClickZoom.disable();
+      }
+    }
+  });
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initLeafletMap);
   } else {
@@ -1269,6 +1420,146 @@
       btn.textContent = '✓ Copied!';
       setTimeout(() => btn.textContent = 'Copy Link', 2200);
     }
+  }
+
+  /* ========= TRAIL MAP ========= */
+  // Waypoint data based on Wikiloc GPS track & trail descriptions
+  const trailWaypoints = [
+    { name: 'Trail Start / Parking',     icon: 'start', lat: 13.1406, lng: 78.0975, elev: '885 m',  detail: 'Parking · Concrete stairs begin', desc: 'The paved trailhead. 500+ stone steps lead from here to the temple.' },
+    { name: 'Kashi Vishweshwara Temple', icon: 'temple', lat: 13.1418, lng: 78.0992, elev: '935 m',  detail: 'Dakshina Kashi Kshetra', desc: 'Ancient Shiva temple. The sacred spring flows from Nandi\'s stone bull mouth.' },
+    { name: 'Forest Check Post',         icon: 'start', lat: 13.1425, lng: 78.1005, elev: '960 m',  detail: 'Forest dept entry point', desc: 'Show booking confirmation. Beyond here, the trail becomes rugged boulder terrain.' },
+    { name: 'Boulder Field',             icon: 'start', lat: 13.1432, lng: 78.1018, elev: '1020 m', detail: 'Volcanic rock zone', desc: 'Steep ascent over massive volcanic boulders. Trail narrows significantly.' },
+    { name: 'Launchpad Rock',            icon: 'cave', lat: 13.1440, lng: 78.1028, elev: '1070 m', detail: 'Iconic flat rock platform', desc: 'A flat natural rock platform — popular stop for photos and rest.' },
+    { name: 'Antaragange Cave',          icon: 'cave', lat: 13.1447, lng: 78.1037, elev: '1075 m', detail: 'Lava tube cave entrance', desc: 'Ancient volcanic lava tube. Some passages require crawling — carry a torch.' },
+    { name: 'Plateau Junction',          icon: 'start', lat: 13.1453, lng: 78.1045, elev: '1100 m', detail: 'Trail splits here', desc: 'Path divides — straight up for Durga Hill summit, left toward the plateau villages.' },
+    { name: 'Devil\'s Horn',              icon: 'cave', lat: 13.1458, lng: 78.1052, elev: '1140 m', detail: 'Distinctive twin rock horns', desc: 'Twin pinnacles of volcanic rock — one of the most photographed spots on the trek.' },
+    { name: 'Durga Hill (Summit)',       icon: 'summit', lat: 13.1463, lng: 78.1058, elev: '1226 m', detail: 'Peak · 1,226 m elevation', desc: 'The summit. Panoramic views of the Kolar plateau, KGF, and surrounding countryside.' }
+  ];
+
+  function initTrailMap() {
+    if (typeof L === 'undefined') { setTimeout(initTrailMap, 200); return; }
+
+    const tmap = L.map('trailMap', {
+      scrollWheelZoom: false,
+      zoomControl: true,
+      center: [13.1435, 78.1018],
+      zoom: 15
+    });
+
+    // Topographic tiles for terrain/elevation visibility
+    L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      maxZoom: 17,
+      attribution: '© OpenTopoMap © OpenStreetMap'
+    }).addTo(tmap);
+
+    // Refined trail route — follows the actual uphill path more accurately
+    // (based on Wikiloc GPS tracks & AllTrails route data)
+    const trailRoute = [
+      [13.1406, 78.0975],  // 1 — Parking / trail entrance
+      [13.1409, 78.0979],
+      [13.1412, 78.0984],
+      [13.1415, 78.0988],
+      [13.1418, 78.0992],  // 2 — Temple
+      [13.1421, 78.0997],
+      [13.1423, 78.1001],
+      [13.1425, 78.1005],  // 3 — Forest checkpoint
+      [13.1427, 78.1009],
+      [13.1429, 78.1013],
+      [13.1432, 78.1018],  // 4 — Boulder field
+      [13.1435, 78.1022],
+      [13.1437, 78.1025],
+      [13.1440, 78.1028],  // 5 — Launchpad Rock
+      [13.1442, 78.1031],
+      [13.1445, 78.1034],
+      [13.1447, 78.1037],  // 6 — Cave entrance
+      [13.1449, 78.1040],
+      [13.1451, 78.1043],
+      [13.1453, 78.1045],  // 7 — Plateau junction
+      [13.1455, 78.1048],
+      [13.1456, 78.1050],
+      [13.1458, 78.1052],  // 8 — Devil's Horn
+      [13.1460, 78.1055],
+      [13.1462, 78.1057],
+      [13.1463, 78.1058]   // 9 — Durga Hill Summit
+    ];
+
+    // Draw trail line (dashed sand-colored)
+    L.polyline(trailRoute, {
+      color: '#c9a96e',
+      weight: 4,
+      opacity: 0.85,
+      dashArray: '8, 6',
+      lineCap: 'round'
+    }).addTo(tmap);
+
+    // Subtle terrain fill under trail
+    L.polygon(trailRoute.map(p => [p[0] - 0.00015, p[1]]).concat([...trailRoute].reverse()), {
+      color: 'transparent',
+      fillColor: '#c9a96e',
+      fillOpacity: 0.06
+    }).addTo(tmap);
+
+    // Waypoint markers
+    const wpMarkers = [];
+    const iconMap = {
+      start:  { bg: '#2d8a45', label: '●' },
+      temple: { bg: '#b5622a', label: '⛩' },
+      cave:   { bg: '#8b6914', label: '⬡' },
+      summit: { bg: '#c9a96e', label: '▲' }
+    };
+
+    trailWaypoints.forEach((wp, i) => {
+      const ic = iconMap[wp.icon] || iconMap.start;
+      const marker = L.marker([wp.lat, wp.lng], {
+        icon: L.divIcon({
+          className: '',
+          html: '<div style="width:28px;height:28px;background:' + ic.bg + ';color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.35);">' + ic.label + '</div>',
+          iconSize: [28, 28],
+          iconAnchor: [14, 14]
+        })
+      }).addTo(tmap);
+
+      marker.bindPopup(
+        '<div style="font-family:DM Sans,sans-serif;min-width:180px;">' +
+          '<strong style="font-family:Cormorant Garamond,serif;font-size:1.05rem;color:#2c2416;">' + wp.name + '</strong>' +
+          '<div style="color:#b5622a;font-size:0.72rem;font-weight:600;margin:2px 0 6px;">' + wp.elev + ' elevation</div>' +
+          '<div style="color:#6b5e4a;font-size:0.82rem;line-height:1.5;">' + wp.desc + '</div>' +
+        '</div>'
+      );
+      wpMarkers.push(marker);
+    });
+
+    // Build sidebar waypoint list
+    const wpListEl = document.getElementById('trailWaypoints');
+    trailWaypoints.forEach((wp, i) => {
+      const div = document.createElement('div');
+      div.className = 'trail-wp';
+      div.innerHTML =
+        '<span class="trail-wp-icon ' + wp.icon + '">' + iconMap[wp.icon].label + '</span>' +
+        '<div class="trail-wp-info">' +
+          '<div class="trail-wp-name">' + wp.name + '</div>' +
+          '<div class="trail-wp-detail">' + wp.elev + ' · ' + wp.detail + '</div>' +
+        '</div>';
+      div.addEventListener('click', () => {
+        tmap.flyTo([wp.lat, wp.lng], 16, { duration: 0.8 });
+        setTimeout(() => wpMarkers[i].openPopup(), 500);
+      });
+      wpListEl.appendChild(div);
+    });
+
+    // Fit map to show entire trail
+    tmap.fitBounds(trailRoute, { padding: [40, 40], maxZoom: 16 });
+
+    // Enable scroll zoom on click
+    tmap.on('click', () => tmap.scrollWheelZoom.enable());
+    tmap.on('mouseout', () => tmap.scrollWheelZoom.disable());
+  }
+
+  // Initialize trail map
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTrailMap);
+  } else {
+    initTrailMap();
   }
 </script>
 </body>
