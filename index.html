@@ -543,7 +543,20 @@
       .map-interactive { grid-template-columns: 1fr; height: auto; }
       .map-sidebar { max-height: 300px; border-right: none; border-bottom: 1px solid var(--border); }
       #leafletMap { height: 380px; position: relative; }
-      .map-interact-overlay { display: none; }
+      .map-interact-overlay {
+        position: absolute; inset: 0; z-index: 1000;
+        background: rgba(44,36,22,0.55);
+        backdrop-filter: blur(3px);
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        cursor: pointer;
+        border-radius: 0 0 16px 16px;
+        transition: opacity 0.3s;
+      }
+      .map-interact-overlay.hidden { opacity: 0; pointer-events: none; }
+      .map-interact-overlay svg { margin-bottom: 0.6rem; }
+      .map-interact-overlay p { color: #fff; font-size: 0.88rem; font-weight: 500; }
+      .map-interact-overlay small { color: rgba(255,255,255,0.7); font-size: 0.72rem; margin-top: 0.25rem; max-width: 260px; text-align: center; line-height: 1.45; }
     }
     @media (min-width: 801px) {
       .map-interact-overlay { display: none !important; }
@@ -578,9 +591,9 @@
   <div class="hero-content">
     <div class="hero-badge">📍 Kolar District, Karnataka · 70 km from Bengaluru</div>
     <h1 class="hero-title">Antara<em>gange</em></h1>
-    <p class="hero-sub">Ancient lava caves. A sacred spring that never runs dry. Boulders piled by volcanoes millions of years ago. One of Karnataka's most unique natural and spiritual destinations.</p>
+    <p class="hero-sub">This is a scroll-based visitor guide for Antaragange. Scroll down to learn about the temple, trek route, booking, nearby places, safety tips, map, and gallery before you start exploring.</p>
     <a href="#about" class="hero-cta">
-      Discover the Place
+      Scroll to Explore
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
   </div>
@@ -805,6 +818,16 @@
         <div class="map-sidebar-list" id="placesList"></div>
       </aside>
       <div id="leafletMap"></div>
+      <div class="map-interact-overlay" id="mapOverlay" onclick="enableMapInteract()">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+          <rect x="1" y="3" width="15" height="13" rx="2"/>
+          <path d="M16 8h4l3 3v5h-7V8z"/>
+          <circle cx="5.5" cy="18.5" r="2.5"/>
+          <circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+        <p>Tap only if you want to use the map</p>
+        <small>This guide is mainly scroll-based. Most content is for reading; only map controls, links, and buttons are clickable.</small>
+      </div>
     </div>
   </div>
 </section>
