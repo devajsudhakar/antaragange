@@ -73,11 +73,9 @@
     .hero-badge { display: inline-block; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sand); border: 1px solid rgba(201,169,110,0.5); padding: 0.35rem 1rem; border-radius: 2rem; margin-bottom: 1.4rem; animation: fadeUp 0.8s 0.2s both; }
     .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.2rem, 7vw, 6.5rem); font-weight: 300; line-height: 1.0; color: #fff; margin-bottom: 1.2rem; animation: fadeUp 0.8s 0.4s both; }
     .hero-title em { font-style: italic; color: var(--sand); }
-    .hero-sub { font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.72); max-width: 500px; margin-bottom: 1.5rem; animation: fadeUp 0.8s 0.6s both; }
-    .hero-scroll-note { display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(201,169,110,0.25); border-radius: 999px; color: rgba(255,255,255,0.78); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; backdrop-filter: blur(10px); animation: fadeUp 0.8s 0.8s both; }
-    .hero-scroll-note span { width: 20px; height: 32px; border: 1px solid rgba(201,169,110,0.55); border-radius: 999px; position: relative; flex-shrink: 0; }
-    .hero-scroll-note span::after { content: ''; position: absolute; left: 50%; top: 7px; width: 4px; height: 4px; border-radius: 50%; background: var(--sand); transform: translateX(-50%); animation: scrollDot 1.7s infinite; }
-    @keyframes scrollDot { 0% { opacity: 0; transform: translate(-50%, 0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, 13px); } }
+    .hero-sub { font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.72); max-width: 500px; margin-bottom: 2.2rem; animation: fadeUp 0.8s 0.6s both; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 2rem; background: var(--accent); color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; border-radius: 2rem; transition: background 0.2s, transform 0.2s; animation: fadeUp 0.8s 0.8s both; }
+    .hero-cta:hover { background: #9e5222; transform: translateY(-2px); }
     .hero-stats { position: absolute; right: 2.5rem; bottom: 5rem; z-index: 2; display: flex; flex-direction: column; gap: 1.5rem; animation: fadeUp 0.8s 1s both; }
     .stat { text-align: right; }
     .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--sand); line-height: 1; }
@@ -545,20 +543,7 @@
       .map-interactive { grid-template-columns: 1fr; height: auto; }
       .map-sidebar { max-height: 300px; border-right: none; border-bottom: 1px solid var(--border); }
       #leafletMap { height: 380px; position: relative; }
-      .map-interact-overlay {
-        position: absolute; inset: 0; z-index: 1000;
-        background: rgba(44,36,22,0.55);
-        backdrop-filter: blur(3px);
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: center;
-        cursor: pointer;
-        border-radius: 0 0 16px 16px;
-        transition: opacity 0.3s;
-      }
-      .map-interact-overlay.hidden { opacity: 0; pointer-events: none; }
-      .map-interact-overlay svg { margin-bottom: 0.6rem; }
-      .map-interact-overlay p { color: #fff; font-size: 0.88rem; font-weight: 500; }
-      .map-interact-overlay small { color: rgba(255,255,255,0.7); font-size: 0.72rem; margin-top: 0.25rem; max-width: 260px; text-align: center; line-height: 1.45; }
+      .map-interact-overlay { display: none; }
     }
     @media (min-width: 801px) {
       .map-interact-overlay { display: none !important; }
@@ -594,7 +579,10 @@
     <div class="hero-badge">📍 Kolar District, Karnataka · 70 km from Bengaluru</div>
     <h1 class="hero-title">Antara<em>gange</em></h1>
     <p class="hero-sub">Ancient lava caves. A sacred spring that never runs dry. Boulders piled by volcanoes millions of years ago. One of Karnataka's most unique natural and spiritual destinations.</p>
-    <div class="hero-scroll-note"><span></span> Scroll to explore the guide</div>
+    <a href="#about" class="hero-cta">
+      Discover the Place
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
   </div>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">1,226 m</div><div class="stat-label">Elevation</div></div>
@@ -817,16 +805,6 @@
         <div class="map-sidebar-list" id="placesList"></div>
       </aside>
       <div id="leafletMap"></div>
-      <div class="map-interact-overlay" id="mapOverlay" onclick="enableMapInteract()">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
-          <rect x="1" y="3" width="15" height="13" rx="2"/>
-          <path d="M16 8h4l3 3v5h-7V8z"/>
-          <circle cx="5.5" cy="18.5" r="2.5"/>
-          <circle cx="18.5" cy="18.5" r="2.5"/>
-        </svg>
-        <p>Tap only if you want to use the map</p>
-        <small>This guide is mainly scroll-based. Most content is for reading; only map controls, links, and buttons are clickable.</small>
-      </div>
     </div>
   </div>
 </section>
